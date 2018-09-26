@@ -1,0 +1,20 @@
+{
+    "name": "Tengaged Notifier",
+    "version": "1.0",
+    "description": "Notifies when in-game system notifications pop up.",
+    "permissions": ["storage"],
+    "content_scripts": [
+        {
+            "matches": [
+                //"*://tengaged.com/game/*"
+                "<all_urls>"
+            ],
+            "js": ["content.js"]
+        }
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "manifest_version": 2,
+    "web_accessible_resources": ["ding.wav"]
+}
