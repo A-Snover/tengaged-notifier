@@ -1,45 +1,26 @@
-var oldMessageContents = [];
-var i;
+//Currently this doesn't play when play is called...
+var detectedSound = new Audio("resource://detected.mp3");
 
-//Delete for actual implementation
-var itemsDetected = 0;
+var messageLog = document.getElementsByClassName("ingame-messages")[1];
 
-function checkMessages() {
+//Only updates when items are added to the list of messages
+var config = {
+    childList: true
+};
 
-    var messageContents = [];
+//Checks if the last message was a game event. If so, creates an alert.
+var checkImportant = function () {
 
-    for (i = 0; i < 2; i++) {
+    var latestMessage = messageLog.children[0];
 
-        messageContents[i] = document.getElementsByClassName("ingame-messages")[1].children[i];
-
+    //bigbrother is the class type for system-generated messages. It is used for displaying nominations, evictions, apples, and keys.
+    if (latestMessage.classList.contains("bigbrother")) {
+        detectedSound.play();
+        alert("Important event occurred!");
     }
 
-    //    var latestMessage = document.getElementsByClassName("ingame-messages")[1].children[0];
-    //    var msgContent = document.getElementsByClassName("body")[0];
+};
 
-    if ((oldMessageContents.length === 0 || oldMessageContents[1] != messageContents[1]) && messageContents[0].className == "bigbrother") {
+var observer = new MutationObserver(checkImportant);
 
-        alert("Important message!!!");
-        itemsDetected++;
-
-    }
-
-    if (oldMessageContents.length > 0) {
-
-        var toDisplay = "old message content: " + oldMessageContents[1].innerHTML + "\<br\>new message content: " + messageContents[1].innerHTML + "\<br\> Are the two the same?: " + (oldMessageContents[1] == messageContents[1]) + "\<br\>Number of items detected so far: " + itemsDetected;
-
-        document.getElementsByClassName("ingame-right")[0].innerHTML = toDisplay;
-
-    }
-
-
-
-    for (i = 0; i < 2; i++) {
-
-        oldMessageContents[i] = messageContents[i];
-
-    }
-
-}
-
-setInterval(checkMessages, 500);
+observer.observe(messageLog, config);
