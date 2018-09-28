@@ -6,4 +6,4 @@ In some modes, it is very advantageous to know when certain events occur, such a
 These items only grant a bonus to the first person in the game that clicks on them, and they spawn randomly through the week-long game. 
 So, this browser extension seeks to help users be the first to get the item without constant paranoid checking of their casting game.
 
-Currently, this extension uses a JavaScript alert to force user attention to a tab. This is not the best practice and can prove to be annoying for many users. I am working on adding web push notifications to make the application less intrusive to use.
+Currently, this extension uses a JavaScript alert which can force browser focus to the tab. This is not very user friendly, so I will likely modify it to change the site's favicon and play a sound instead.
