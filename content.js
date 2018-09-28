@@ -1,15 +1,26 @@
-var oldMessage;
+//Currently this doesn't play when play is called...
+var detectedSound = new Audio("resource://detected.mp3");
 
-function checkMessages() {
+var messageLog = document.getElementsByClassName("ingame-messages")[1];
 
-    var latestMessage = document.getElementsByClassName("ingame-messages")[1].children[0];
+//Only updates when items are added to the list of messages
+var config = {
+    childList: true
+};
 
-    if ((oldMessage === null || oldMessage != latestMessage) && latestMessage.className == "bigbrother") {
+//Checks if the last message was a game event. If so, creates an alert.
+var checkImportant = function () {
 
-        alert("Important message!!!");
+    var latestMessage = messageLog.children[0];
+
+    //bigbrother is the class type for system-generated messages. It is used for displaying nominations, evictions, apples, and keys.
+    if (latestMessage.classList.contains("bigbrother")) {
+        detectedSound.play();
+        alert("Important event occurred!");
     }
 
-    oldMessage = latestMessage;
-}
+};
 
-setInterval(checkMessages, 500);
+var observer = new MutationObserver(checkImportant);
+
+observer.observe(messageLog, config);

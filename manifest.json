@@ -12,9 +12,6 @@
             "js": ["content.js"]
         }
     ],
-    "background": {
-        "scripts": ["background.js"]
-    },
     "manifest_version": 2,
-    "web_accessible_resources": ["ding.wav"]
+    "web_accessible_resources": ["resource://ding.wav"]
 }
